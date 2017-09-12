@@ -1,0 +1,91 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <h3>Lisää henkilö</h3>
+
+            <button (click)="bulkAddElasticsearchIndex()">Bulk create</button>
+            <p>
+                <span *ngIf="showBulkTook">Luonti kesti {{ bulkTook }} sekuntia.</span>
+            </p>
+
+            <form [formGroup]="personForm" (ngSubmit)="addElasticsearchIndex()">
+                <input formControlName="name" placeholder="Nimi" type="text" id="add-name-input">
+                <input formControlName="city" placeholder="Kaupunki" type="text" id="add-city-input">
+                <input formControlName="country" placeholder="Maa" type="text" id="add-country-input">
+                <input formControlName="email" placeholder="Sähköposti" type="email" id="add-email-input">
+                <button type="submit">Tallenna</button>
+            </form>
+
+        </div>
+
+        <div class="col-xs-12">
+
+            <h3>Tulokset</h3>
+
+            <button (click)="readElasticsearchIndices()">Hae kaikki</button>
+
+            <p>
+                <span *ngIf="showTook">Haku kesti {{ took }} sekuntia.</span>
+                <span *ngIf="showTook && showHits"><br/></span>
+                <span *ngIf="showHits">Hakutuloksia {{ hits }} kpl.</span>
+                <span *ngIf="showTook && showHits && showLoopTook"><br/></span>
+                <span *ngIf="showLoopTook">While loop kesti {{ loopTook }} sekuntia.</span>
+            </p>
+
+            <input placeholder="Vapaa tekstihaku..." type="text" id="search-input" [ngModel]="inputString" (ngModelChange)="inputSearch($event)">
+
+            <table>
+                <tr>
+                    <th>
+                        <input placeholder="Nimi" type="text" [formControl]="nameInput" />
+                    </th>
+                    <th>
+                        <input placeholder="Kaupunki" type="text" [formControl]="cityInput" />
+                    </th>
+                    <th>
+                        <input placeholder="Maa" type="text" [formControl]="countryInput" />
+                    </th>
+                    <th>
+                        <input placeholder="Sähköposti" type="email" [formControl]="emailInput" />
+                    </th>
+                </tr>
+            </table>
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        Nimi
+                    </th>
+                    <th>
+                        Kaupunki
+                    </th>
+                    <th>
+                        Maa
+                    </th>
+                    <th>
+                        Sähköposti
+                    </th>
+                </tr>
+                <tr *ngFor="let row of persons">
+                    <td>
+                        {{ row.name }}
+                    </td>
+                    <td>
+                        {{ row.city }}
+                    </td>
+                    <td>
+                        {{ row.country }}
+                    </td>
+                    <td>
+                        {{ row.email }}
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
